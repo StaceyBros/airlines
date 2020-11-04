@@ -17,6 +17,7 @@
           <%= link_to 'All_users', users_path %>
           <%= link_to 'All_planes', airplanes_path %>
           <%= link_to 'All_flights', flights_path %>
+          <%= link_to 'All_reservations', reservations_path %>
         <% end %>
         <%= link_to "Log out #{@current_user.email}", login_path, :method => 'delete' %>
       <% else %>

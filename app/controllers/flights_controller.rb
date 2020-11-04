@@ -6,6 +6,27 @@ class FlightsController < ApplicationController
   # GET /flights.json
   def index
     @flights = Flight.all
+    @flights.each do |f|
+      if f.airplane_id.present?
+        f_rows = Airplane.find(f.airplane_id).rows
+        f_columns = Airplane.find(f.airplane_id).columns
+        f_plane_array = []
+        (0...f_rows*f_columns).each do |i|
+          f_plane_array << i.to_s
+        end
+        f.reservations.each do |r|
+          if r.seat.present? && f_plane_array.include?(r.seat)
+            f_plane_array.delete(r.seat)
+          end
+        end
+        # f.plane = f_plane_array.size
+        f.plane = f_plane_array.join(',')
+        f.save
+      else
+        f.plane =''
+        f.save
+      end
+    end
   end
 
   # GET /flights/1

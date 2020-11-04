@@ -22,12 +22,19 @@
 
 <p>
   <strong>Plane:</strong>
-  <%= @flight.plane %>
+  <%= @flight.plane.split(',') %>
 </p>
 
 <p>
   <strong>Airplane:</strong>
-  <%= @flight.airplane_id %>
+  <%= Airplane.find(@flight.airplane_id).name %>
+</p>
+
+<p>
+  <strong>Users:</strong>
+  <% @flight.users.uniq.each do |user| %>
+    <%=user.name%>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_flight_path(@flight) %> |
